@@ -7,11 +7,19 @@ using namespace MATH;
 
 /// Forward declarations 
 union SDL_Event;
-
+class Actor;
+class Mesh;
+class Shader;
 
 class Scene0 : public Scene {
 private:
-	
+	Actor* sphere;
+	Mesh* mesh;
+	Shader* shader;
+	Matrix4 projectionMatrix;
+	Matrix4 viewMatrix;
+	Matrix4 modelMatrix;
+
 public:
 	explicit Scene0();
 	virtual ~Scene0();
