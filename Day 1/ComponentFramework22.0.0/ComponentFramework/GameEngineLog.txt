@@ -1,4 +1,4 @@
-Wed Jan 12 12:25:58 2022
+Wed Jan 19 12:08:50 2022
 [INFO]: Starting the SceneManager
 [INFO]: OpenGL version: 4.6.0 NVIDIA 511.09
 [INFO]: Graphics card vendor NVIDIA Corporation
@@ -7,11 +7,13 @@ Wed Jan 12 12:25:58 2022
 [INFO]: Created Scene0: 
 [INFO]: Loading assets Scene0: 
 [INFO]: Uniforms:
+"lightPos" loc:3
 "modelMatrix" loc:2
 "projectionMatrix" loc:0
 "viewMatrix" loc:1
 
 [INFO]: Uniforms:
+"lightPos" loc:3
 "modelMatrix" loc:2
 "projectionMatrix" loc:0
 "viewMatrix" loc:1

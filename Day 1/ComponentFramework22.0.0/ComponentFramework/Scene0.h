@@ -19,6 +19,7 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
 	Matrix4 modelMatrix;
+	Vec3 lightPos;
 
 public:
 	explicit Scene0();

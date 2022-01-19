@@ -129,5 +129,11 @@
     <None Include="shaders\defaultVert.glsl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="shaders\phongFrag.glsl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="shaders\phongVert.glsl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
