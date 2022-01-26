@@ -10,22 +10,20 @@ union SDL_Event;
 class Actor;
 class Mesh;
 class Shader;
-class Texture;
 
-class Scene0 : public Scene {
+class Scene1 : public Scene {
 private:
 	Actor* sphere;
 	Mesh* mesh;
 	Shader* shader;
-	Texture* texture;
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
 	Matrix4 modelMatrix;
 	Vec3 lightPos;
 
 public:
-	explicit Scene0();
-	virtual ~Scene0();
+	explicit Scene1();
+	virtual ~Scene1();
 
 	virtual bool OnCreate() override;
 	virtual void OnDestroy() override;

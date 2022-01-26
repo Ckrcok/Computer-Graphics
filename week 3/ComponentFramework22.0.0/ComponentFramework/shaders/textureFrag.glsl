@@ -4,13 +4,13 @@
 layout(location = 0) in vec3 vertNormal;
 layout(location = 1) in vec3 lightDir;
 layout(location = 2) in vec3 eyeDir; 
-
-
+layout(location = 3) in vec2 texCoord; 
+uniform sampler2D myTexture;
 layout(location = 0) out vec4 fragColor;
 
 void main() {
     vec4 ks = vec4(0.3, 0.3, 0.3, 0.0);
-	vec4 kd = vec4(0.6, 0.6, 0.6, 0.0);
+	vec4 kd = texture(myTexture, texCoord);
 	vec4 ka = 0.1 * kd;
 	float diff = max(dot(vertNormal, lightDir), 0.0);
 

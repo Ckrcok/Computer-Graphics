@@ -125,7 +125,7 @@ GLuint Shader::GetUniformID(std::string name) {
 	auto id = uniformMap.find(name);
 #ifdef _DEBUG
 	if (id == uniformMap.end()) {
-		Debug::Error(name + " :No such uniform name", __FILE__, __LINE__);
+	//	Debug::Error(name + " :No such uniform name", __FILE__, __LINE__);
 		return -1;
 	}
 #endif 
