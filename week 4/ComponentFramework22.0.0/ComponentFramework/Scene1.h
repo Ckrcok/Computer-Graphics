@@ -1,5 +1,5 @@
-#ifndef SCENE0_H
-#define SCENE0_H
+#ifndef SCENE1_H
+#define SCENE1_H
 #include "Scene.h"
 #include "Vector.h"
 #include "Matrix.h"

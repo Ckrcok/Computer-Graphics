@@ -17,10 +17,12 @@ private:
 	Actor* sphere;
 	Mesh* mesh;
 	Shader* shader;
-	Texture* texture;
+	Texture* earthTexture;
+	Texture* moonTexture;
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
-	Matrix4 modelMatrix;
+	Matrix4 earthMatrix;
+	Matrix4 moonMatrix;
 	Vec3 lightPos;
 
 public:

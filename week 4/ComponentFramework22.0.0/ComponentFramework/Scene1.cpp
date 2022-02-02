@@ -22,7 +22,7 @@ bool Scene1::OnCreate() {
 	sphere = new Actor(nullptr);
 	sphere->OnCreate();
 
-	mesh = new Mesh(nullptr, "meshes/Sphere.obj");
+	mesh = new Mesh(nullptr, "meshes/Mario.obj");
 	mesh->OnCreate();
 
 	shader = new Shader(nullptr, "shaders/phongVert.glsl", "shaders/phongFrag.glsl");
