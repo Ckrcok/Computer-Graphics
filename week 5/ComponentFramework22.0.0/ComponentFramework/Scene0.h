@@ -14,16 +14,15 @@ class Texture;
 
 class Scene0 : public Scene {
 private:
-	Actor* sphere;
-	Mesh* mesh;
+	Actor* skull;
+	Mesh* skullMesh;
 	Shader* shader;
-	Texture* earthTexture;
-	Texture* moonTexture;
+	Texture* skullTexture;
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
-	Matrix4 earthMatrix;
-	Matrix4 moonMatrix;
+	Matrix4 skullMatrix;
 	Vec3 lightPos;
+	Texture *texture;
 
 public:
 	explicit Scene0();

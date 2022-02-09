@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "Scene0.h"
 #include "Scene1.h"
+#include "Scene2.h"
 
 SceneManager::SceneManager(): 
 	currentScene(nullptr), window(nullptr), timer(nullptr),
@@ -45,7 +46,7 @@ bool SceneManager::Initialize(std::string name_, int width_, int height_) {
 	}
 
 	/********************************   Default first scene   ***********************/
-	BuildNewScene(SCENE_NUMBER::SCENE1);
+	BuildNewScene(SCENE_NUMBER::SCENE2);
 	
 	return true;
 }
@@ -74,10 +75,23 @@ void SceneManager::HandleEvents() {
 		else if (sdlEvent.type == SDL_KEYDOWN) {
 			switch (sdlEvent.key.keysym.scancode) {
 			case SDL_SCANCODE_ESCAPE:
+				
 			case SDL_SCANCODE_Q:
 				isRunning = false;
 				return;
 				[[fallthrough]]; /// C17 Prevents switch/case fallthrough warnings
+
+			case SDL_SCANCODE_F2:
+				BuildNewScene(SCENE_NUMBER::SCENE1);
+				break;
+
+			case SDL_SCANCODE_F3:
+				BuildNewScene(SCENE_NUMBER::SCENE0);
+				break;
+			case SDL_SCANCODE_F4:
+				BuildNewScene(SCENE_NUMBER::SCENE0);
+				break;
+
 			default:
 				break;
 			}
@@ -94,28 +108,35 @@ void SceneManager::HandleEvents() {
 void SceneManager::BuildNewScene(SCENE_NUMBER scene) {
 	bool status; 
 
+
+	//destroy current scene
 	if (currentScene != nullptr) {
 		currentScene->OnDestroy();
 		delete currentScene;
 		currentScene = nullptr;
 	}
-
+	
+	//switch what scene you would run
 	switch (scene) {
-	case SCENE_NUMBER::SCENE0:
-		currentScene = new Scene0();
-		status = currentScene->OnCreate();
-		break;
+		case SCENE_NUMBER::SCENE0:
+			currentScene = new Scene0();
+			status = currentScene->OnCreate();
+			break;
 
-	case SCENE_NUMBER::SCENE1:
-		currentScene = new Scene1();
-		status = currentScene->OnCreate();
-		break;
+		case SCENE_NUMBER::SCENE1:
+			currentScene = new Scene1();
+			status = currentScene->OnCreate();
+			break;
 
-	default:
-		Debug::Error("Incorrect scene number assigned in the manager", __FILE__, __LINE__);
-		currentScene = nullptr;
-		break;
-	}	
+		case SCENE_NUMBER::SCENE2:
+			currentScene = new Scene2();
+			status = currentScene->OnCreate();
+			break;
+		default:
+			Debug::Error("Incorrect scene number assigned in the manager", __FILE__, __LINE__);
+			currentScene = nullptr;
+			break;
+		}	
 }
 
 

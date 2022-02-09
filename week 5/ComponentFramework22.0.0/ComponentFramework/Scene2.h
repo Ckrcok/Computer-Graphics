@@ -1,5 +1,5 @@
-#ifndef SCENE1_H
-#define SCENE1_H
+#ifndef SCENE2_H
+#define SCENE2_H
 #include "Scene.h"
 #include "Vector.h"
 #include "Matrix.h"
@@ -12,28 +12,27 @@ class Mesh;
 class Shader;
 class Texture;
 
-class Scene1 : public Scene {
+class Scene2 : public Scene {
 private:
-	Actor* sphere;
-	Mesh* mesh;
+	Actor* skull;
+	Mesh* skullMesh;
 	Shader* shader;
+	Texture* skullTexture;
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
-	Matrix4 modelMatrix;
-	Vec3 lightPos0;
-	Vec3 lightPos1;
-	Vec3 lightPositions[3];
-	Texture *texture;
+	Matrix4 skullMatrix;
+	Vec3 lightPos;
+	Texture* texture;
 
 public:
-	explicit Scene1();
-	virtual ~Scene1();
+	explicit Scene2();
+	virtual ~Scene2();
 
 	virtual bool OnCreate() override;
 	virtual void OnDestroy() override;
 	virtual void Update(const float deltaTime) override;
 	virtual void Render() const override;
-	virtual void HandleEvents(const SDL_Event &sdlEvent) override;
+	virtual void HandleEvents(const SDL_Event& sdlEvent) override;
 };
 
 

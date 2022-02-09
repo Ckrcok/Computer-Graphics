@@ -8,6 +8,7 @@
 #include "Actor.h"
 #include "Mesh.h"
 #include "Shader.h"
+#include "Texture.h"
 
 Scene1::Scene1() :sphere(nullptr), shader{ nullptr }, mesh{nullptr}  {
 	Debug::Info("Created Scene1: ", __FILE__, __LINE__);
@@ -25,16 +26,20 @@ bool Scene1::OnCreate() {
 	mesh = new Mesh(nullptr, "meshes/Mario.obj");
 	mesh->OnCreate();
 
-	shader = new Shader(nullptr, "shaders/phongVert.glsl", "shaders/phongFrag.glsl");
+	shader = new Shader(nullptr, "shaders/multiLightVert.glsl", "shaders/multiLightFrag.glsl");
 	shader->OnCreate();
 	if (shader->OnCreate() == false){
 		std::cout << "Shader Failed..";
 	}
 
+	texture = new Texture();
+	texture->LoadImage("textures/mario_main.png");
+
 	projectionMatrix = MMath::perspective(45.0f, (16.0f/9.0f), 0.5f, 100.f );
 	viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 5.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 0.0f));
 	modelMatrix.loadIdentity();
-	lightPos = Vec3(0.0f, 0.0f, 8.0f);
+	lightPos0 = Vec3(10.0f, 0.0f, 0.0f);
+	lightPos1 = Vec3(-10.0f, 0.0f, 0.0f);
 	return true;
 }
 
@@ -85,8 +90,12 @@ void Scene1::Render() const {
 	glUniformMatrix4fv(shader->GetUniformID("projectionMatrix"), 1, GL_FALSE, projectionMatrix);
 	glUniformMatrix4fv(shader->GetUniformID("viewMatrix"), 1, GL_FALSE, viewMatrix);
 	glUniformMatrix4fv(shader->GetUniformID("modelMatrix"), 1, GL_FALSE, modelMatrix);
-	glUniform3fv(shader->GetUniformID("lightPos"), 1, lightPos);
-	mesh->Render(GL_TRIANGLE_FAN);
+	glUniform3fv(shader->GetUniformID("lightPos0"), 1, lightPos0);
+	
+	
+	glBindTexture(GL_TEXTURE_2D, texture->getTextureID());
+	mesh->Render(GL_TRIANGLES);
+	glBindTexture(GL_TEXTURE_2D, texture->getTextureID());
 	glUseProgram(0);
 }
 

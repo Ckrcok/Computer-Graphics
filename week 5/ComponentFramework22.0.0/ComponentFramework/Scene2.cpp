@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL.h>
 #include "Debug.h"
-#include "Scene0.h"
+#include "Scene2.h"
 #include "MMath.h"
 #include "Debug.h"
 #include "Actor.h"
@@ -10,16 +10,16 @@
 #include "Shader.h"
 #include "Texture.h"
 
-Scene0::Scene0() :skull(nullptr), shader{ nullptr }, skullMesh{ nullptr }, skullTexture{ nullptr }  {
-	Debug::Info("Created Scene0: ", __FILE__, __LINE__);
+Scene2::Scene2() :skull(nullptr), shader{ nullptr }, skullMesh{ nullptr }, skullTexture{ nullptr }  {
+	Debug::Info("Created Scene2: ", __FILE__, __LINE__);
 }
 
-Scene0::~Scene0() {
-	Debug::Info("Deleted Scene0: ", __FILE__, __LINE__);
+Scene2::~Scene2() {
+	Debug::Info("Deleted Scene2: ", __FILE__, __LINE__);
 }
 
-bool Scene0::OnCreate() {
-	Debug::Info("Loading assets Scene0: ", __FILE__, __LINE__);
+bool Scene2::OnCreate() {
+	Debug::Info("Loading assets Scene2: ", __FILE__, __LINE__);
 	skull = new Actor(nullptr);
 	skull->OnCreate();
 
@@ -43,8 +43,8 @@ bool Scene0::OnCreate() {
 	return true;
 }
 
-void Scene0::OnDestroy() {
-	Debug::Info("Deleting assets Scene0: ", __FILE__, __LINE__);
+void Scene2::OnDestroy() {
+	Debug::Info("Deleting assets Scene2: ", __FILE__, __LINE__);
 
 	skull->OnDestroy();
 	delete skull;
@@ -58,33 +58,48 @@ void Scene0::OnDestroy() {
 	delete skullTexture;
 }
 
-void Scene0::HandleEvents(const SDL_Event& sdlEvent) {
+void Scene2::HandleEvents(const SDL_Event& sdlEvent) {
 	switch (sdlEvent.type) {
-	case SDL_KEYDOWN:
-		break;
+		case SDL_KEYDOWN:
+			if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT){
+				
+				skullMatrix *= MMath::rotate(1.0f, Vec3(0.0f, 1.0f, 0.0f));
 
-	case SDL_MOUSEMOTION:
-		break;
+			}else if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_RIGHT){
 
-	case SDL_MOUSEBUTTONDOWN:
-		break;
+				skullMatrix *= MMath::rotate(-1.0f, Vec3(0.0f, 1.0f, 0.0f));
 
-	case SDL_MOUSEBUTTONUP:
-		break;
+			}else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP) {
 
-	default:
-		break;
-	}
+				skullMatrix *= MMath::rotate(-1.0f, Vec3(1.0f, 0.0f, 0.0f));
+
+			}
+			else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+
+				skullMatrix *= MMath::rotate(1.0f, Vec3(1.0f, 0.0f, 0.0f));
+
+			}
+			break;
+
+		case SDL_MOUSEMOTION:
+			break;
+
+		case SDL_MOUSEBUTTONDOWN:
+			break;
+
+		case SDL_MOUSEBUTTONUP:
+			break;
+
+		default:
+			break;
+		}
 }
 
-void Scene0::Update(const float deltaTime) {
-	static float totalTime = 0.0f;
-	totalTime += deltaTime;
-	skullMatrix = MMath::rotate(totalTime * 4.0f, Vec3(0.0, 1.0f, 0.0f));
+void Scene2::Update(const float deltaTime) {
 
 }
 
-void Scene0::Render() const {
+void Scene2::Render() const {
 	glEnable(GL_DEPTH_TEST);
 	/// Clear the screen
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
