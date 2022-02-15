@@ -18,7 +18,7 @@ SceneManager::~SceneManager() {
 		delete currentScene;
 		currentScene = nullptr;
 	}
-	
+
 	if (timer) {
 		delete timer;
 		timer = nullptr;

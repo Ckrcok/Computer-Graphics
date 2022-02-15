@@ -21,7 +21,7 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
 	Matrix4 skullMatrix;
-	Vec3 lightPos;
+	Vec3 lightPos[2];
 	Texture* texture;
 
 public:

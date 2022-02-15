@@ -2,8 +2,7 @@
 #extension GL_ARB_separate_shader_objects : enable
 
 layout(location = 0) in vec3 vertNormal;
-layout(location = 1) in vec3 lightDir0;
-layout(location = 2) in vec3 lightDir1;
+layout(location = 1) in vec3 lightDir[2];
 layout(location = 3) in vec3 eyeDir; 
 layout(location = 4) in vec2 texCoord; 
 
@@ -16,14 +15,30 @@ void main() {
     vec4 ks = 0.7 * kd;
 	vec4 ka = 0.01 * kd;
 
+	vec4 kf = vec4(0.8, 0.2, 0.4, 0.0);
+    vec4 kg = 0.7 * kd;
+	vec4 kh = 0.01 * kd;
+
+
 	vec4 textureColor = texture(myTexture, texCoord);
-	
 	float diff[2];
-	diff[0] = max(dot(vertNormal, lightDir0), 0.0);
+	vec3 reflection[2];
+	float spec[2];
+	
+	for(int i=0; i<2 ; i++){
+	diff[i] = max(dot(vertNormal, lightDir[i]), 0.0);
 	/// Reflection is based incedent which means a vector from the light source
 	/// not the direction to the light source
-	vec3 reflection = normalize(reflect(-lightDir0, vertNormal));
-	float spec = max(dot(eyeDir, reflection), 0.0);
-	spec = pow(spec,14.0);
-	fragColor =  ka + (textureColor * diff[0] * kd) + (spec * ks);	
+	reflection[i] = normalize(reflect(-lightDir[i], vertNormal));
+	spec[i] = max(dot(eyeDir, reflection[i]), 0.0);
+	spec[i] = pow(spec[i],14.0);
+	
+	if (i == 1)
+	{
+	fragColor =  ka + (textureColor * diff[i] * kd) + (spec[i] * ks);
+	}else{
+	fragColor =  kh + (textureColor * diff[i] * kf) + (spec[i] * kg);
+	}
+    }
+	
 }

@@ -9,11 +9,10 @@ layout(location = 2) in vec2 uvCoord;
 layout(location = 0) uniform mat4 projectionMatrix;
 layout(location = 1) uniform mat4 viewMatrix;
 layout(location = 2) uniform mat4 modelMatrix;
-layout(location  = 3 ) uniform vec3 lightPos0;
+layout(location  = 3 ) uniform vec3 lightPos[2];
 
 layout(location = 0 ) out vec3 vertNormal;
-layout(location = 1) out vec3 lightDir0;
-layout(location = 2) out vec3 lightDir1;
+layout(location = 1) out vec3 lightDir[2];
 layout(location = 3) out vec3 eyeDir; 
 layout(location = 4) out vec2 texCoord; 
 
@@ -25,6 +24,10 @@ void main() {
     vec3 vertPos = vec3(viewMatrix * modelMatrix * vVertex);
     vec3 vertDir = normalize(vertPos);
     eyeDir = -vertDir;
-    lightDir0 = normalize(vec3(lightPos0) - vertPos);
+
+    for(int i=0; i<2 ; i++){
+        lightDir[i] = normalize(vec3(lightPos[i]) - vertPos);
+    }
+
     gl_Position = (projectionMatrix * viewMatrix) * (modelMatrix * vVertex);
 }
