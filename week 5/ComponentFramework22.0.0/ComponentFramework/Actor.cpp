@@ -1,7 +1,7 @@
 #include "Actor.h"
 
 
-Actor::Actor(Component* parent_):Component(parent_) {}
+Actor::Actor(Component* parent_) :Component(parent_), modelMatrix(MATH::Matrix4()), texture(nullptr), mesh(nullptr) {}
 Actor::~Actor() {}
 
 void Actor::ListComponents() const {
@@ -14,7 +14,22 @@ void Actor::ListComponents() const {
 bool Actor::OnCreate() {
 	return true;
 }
-void Actor::OnDestroy() {}
+void Actor::OnDestroy() {
+	if (mesh)
+	{
+		mesh->OnDestroy();
+		delete mesh;
+		mesh = nullptr;
+	}
+
+	if (texture)
+	{
+		delete texture;
+		texture = nullptr;
+	}
+
+
+}
 void Actor::Update(const float deltaTime) {}
 void Actor::Render()const {}
 

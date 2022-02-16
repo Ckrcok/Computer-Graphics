@@ -10,21 +10,22 @@
 #include "Shader.h"
 #include "Texture.h"
 
-Scene2::Scene2() :skull(nullptr), shader{ nullptr }, skullMesh{ nullptr }, skullTexture{ nullptr }  {
+Scene2::Scene2() :skull(nullptr), shader{ nullptr } {
 	Debug::Info("Created Scene2: ", __FILE__, __LINE__);
 }
 
 Scene2::~Scene2() {
-	Debug::Info("Deleted Scene2: ", __FILE__, __LINE__);
+	Debug::Info("Deleted Scene2: ", "Scene2.cpp", __LINE__);
+	// it dies here
 }
 
 bool Scene2::OnCreate() {
 	Debug::Info("Loading assets Scene2: ", __FILE__, __LINE__);
 	skull = new Actor(nullptr);
 	skull->OnCreate();
-
-	skullMesh = new Mesh(nullptr, "meshes/Skull.obj");
-	skullMesh->OnCreate();
+	
+	skull->SetMesh(new Mesh(nullptr, "meshes/Skull.obj")) ;
+	skull->GetMesh()->OnCreate();
 
 	shader = new Shader(nullptr, "shaders/multiLightVert.glsl", "shaders/multiLightFrag.glsl");
 	shader->OnCreate();
@@ -32,15 +33,15 @@ bool Scene2::OnCreate() {
 		std::cout << "Shader Failed..";
 	}
 
-	skullTexture = new Texture();
-	skullTexture->LoadImage("textures/skull_texture.jpg");
+	skull->SetTexture(new Texture());
+	skull->GetTexture()->LoadImage("textures/skull_texture.jpg");
 
 
 	projectionMatrix = MMath::perspective(45.0f, (16.0f / 9.0f), 0.5f, 100.f);
-	viewMatrix = MMath::lookAt(Vec3(3.0f, -2.0f, 10.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 0.0f));
+	viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 0.0f));
 	//modelMatrix.loadIdentity();
-	lightPos[1] = Vec3(20.0f, 0.0f, -5.0f);
-	lightPos[2] = Vec3(-20.0f, 0.0f, 5.0f);
+	lightPos[0] = Vec3(-10.0f, 0.0f, -5.0f);
+	lightPos[1] = Vec3(10.0f, 0.0f, -5.0f);
 	return true;
 }
 
@@ -49,8 +50,8 @@ void Scene2::OnDestroy() {
 
 	if (skull)
 	{
-	skull->OnDestroy();
-	delete skull;
+		skull->OnDestroy();
+		delete skull;
 	}
 
 	if (shader)
@@ -59,16 +60,7 @@ void Scene2::OnDestroy() {
 		delete shader;
 	}
 
-	if (skullMesh)
-	{
-		skullMesh->OnDestroy();
-		delete skullMesh;
-	}
 
-	if (skullTexture)
-	{
-		delete skullTexture;
-	}
 }
 
 void Scene2::HandleEvents(const SDL_Event& sdlEvent) {
@@ -76,20 +68,20 @@ void Scene2::HandleEvents(const SDL_Event& sdlEvent) {
 		case SDL_KEYDOWN:
 			if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT){
 				
-				skullMatrix *= MMath::rotate(1.0f, Vec3(0.0f, 1.0f, 0.0f));
+				skull->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(0.0f, 1.0f, 0.0f));
 
 			}else if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_RIGHT){
 
-				skullMatrix *= MMath::rotate(-1.0f, Vec3(0.0f, 1.0f, 0.0f));
+				skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(0.0f, 1.0f, 0.0f));
 
 			}else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP) {
 
-				skullMatrix *= MMath::rotate(-1.0f, Vec3(1.0f, 0.0f, 0.0f));
+				skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(1.0f, 0.0f, 0.0f));
 
 			}
 			else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_DOWN) {
 
-				skullMatrix *= MMath::rotate(1.0f, Vec3(1.0f, 0.0f, 0.0f));
+				skull->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(1.0f, 0.0f, 0.0f));
 
 			}
 			break;
@@ -121,12 +113,12 @@ void Scene2::Render() const {
 	glUseProgram(shader->GetProgram());
 	glUniformMatrix4fv(shader->GetUniformID("projectionMatrix"), 1, GL_FALSE, projectionMatrix);
 	glUniformMatrix4fv(shader->GetUniformID("viewMatrix"), 1, GL_FALSE, viewMatrix);
-	glUniform3fv(shader->GetUniformID("lightPos[0]"), 2, *lightPos);
+	glUniform3fv(shader->GetUniformID("lightPos[0]"), 2, lightPos[0]);
 	
 
-	glBindTexture(GL_TEXTURE_2D, skullTexture->getTextureID());
-	glUniformMatrix4fv(shader->GetUniformID("modelMatrix"), 1, GL_FALSE, skullMatrix);
-	skullMesh->Render(GL_TRIANGLES);
+	glBindTexture(GL_TEXTURE_2D, skull->GetTexture()->getTextureID());
+	glUniformMatrix4fv(shader->GetUniformID("modelMatrix"), 1, GL_FALSE, skull->GetModelMatrix());
+	skull->GetMesh()->Render(GL_TRIANGLES);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 

@@ -150,7 +150,7 @@ void Shader::SetUniformLocations(){
 	glGetProgramiv(shaderID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxUniformListLength);
 
 	/// Create a little buffer to hold the uniform's name - old C memory call just for fun 
-	name = (char *)malloc(sizeof(char) * maxUniformListLength);
+	name = (char*)malloc(sizeof(char) * maxUniformListLength);
 
 	
 	for (int i = 0; i < count; ++i) {

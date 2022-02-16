@@ -17,6 +17,6 @@ int main(int argc, char* args[]) {
 		gsm->Run();
 	} 
 	delete gsm;
-	_CrtDumpMemoryLeaks();
+	bool leak = _CrtDumpMemoryLeaks();
 	exit(0);
 }

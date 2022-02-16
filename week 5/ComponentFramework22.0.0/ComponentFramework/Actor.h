@@ -2,9 +2,15 @@
 #include <iostream>
 #include <vector> 
 #include "Component.h"
+#include "Matrix.h"
+#include "Texture.h"
+#include "Mesh.h"
 class Actor: public Component {
 private:
 	std::vector<Component*> components;
+	MATH::Matrix4 modelMatrix;
+	Texture* texture;
+	Mesh* mesh;
 public:
 	Actor(const Actor&) = delete;
 	Actor(Actor&&) = delete;
@@ -18,6 +24,14 @@ public:
 	void Update(const float deltaTime_);
 	void Render() const;
 	void ListComponents()const;
+	
+	Matrix4 GetModelMatrix() const { return modelMatrix; }
+	Texture* GetTexture() const { return texture; }
+	Mesh* GetMesh() const { return mesh; }
+
+	void SetModelMatrix(Matrix4 model_) { modelMatrix = model_; }
+	void SetTexture(Texture* texture_) { texture = texture_; }
+	void SetMesh(Mesh* mesh_) { mesh = mesh_; }
 
 	template<typename ComponentTemplate, typename ... Args>
 	void AddComponent(Args&& ... args_) {

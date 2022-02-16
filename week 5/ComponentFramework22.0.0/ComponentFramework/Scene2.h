@@ -15,18 +15,17 @@ class Texture;
 class Scene2 : public Scene {
 private:
 	Actor* skull;
-	Mesh* skullMesh;
+	//Mesh* skullMesh;
 	Shader* shader;
-	Texture* skullTexture;
+	//Texture* skullTexture;
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
-	Matrix4 skullMatrix;
+	//Matrix4 skullMatrix;
 	Vec3 lightPos[2];
-	Texture* texture;
 
 public:
 	explicit Scene2();
-	virtual ~Scene2();
+	virtual ~Scene2() override;
 
 	virtual bool OnCreate() override;
 	virtual void OnDestroy() override;
