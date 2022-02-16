@@ -1,0 +1,22 @@
+Tue Feb 15 15:52:57 2022
+[INFO]: Starting the SceneManager
+[INFO]: OpenGL version: 4.6.0 NVIDIA 511.65
+[INFO]: Graphics card vendor NVIDIA Corporation
+[INFO]: Graphics card name NVIDIA GeForce GTX 1070 Ti/PCIe/SSE2
+[INFO]: GLSL Version 4.60 NVIDIA
+[INFO]: Created Scene2: 
+[INFO]: Loading assets Scene2: 
+[INFO]: Uniforms:
+"lightPos[0]" loc:3
+"modelMatrix" loc:2
+"myTexture" loc:5
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
+[INFO]: Uniforms:
+"lightPos[0]" loc:3
+"modelMatrix" loc:2
+"myTexture" loc:5
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
