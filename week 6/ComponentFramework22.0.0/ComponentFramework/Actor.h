@@ -5,6 +5,7 @@
 #include "Matrix.h"
 #include "Texture.h"
 #include "Mesh.h"
+
 class Actor: public Component {
 private:
 	std::vector<Component*> components;

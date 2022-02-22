@@ -16,7 +16,6 @@ Scene2::Scene2() :skull(nullptr), shader{ nullptr } {
 
 Scene2::~Scene2() {
 	Debug::Info("Deleted Scene2: ", "Scene2.cpp", __LINE__);
-	// it dies here
 }
 
 bool Scene2::OnCreate() {
@@ -29,13 +28,30 @@ bool Scene2::OnCreate() {
 
 	shader = new Shader(nullptr, "shaders/multiLightVert.glsl", "shaders/multiLightFrag.glsl");
 	shader->OnCreate();
-	if (shader->OnCreate() == false) {
-		std::cout << "Shader Failed..";
-	}
+
+	if (shader->OnCreate() == false) {std::cout << "Shader Failed..";}
 
 	skull->SetTexture(new Texture());
 	skull->GetTexture()->LoadImage("textures/skull_texture.jpg");
 
+	LEye = new Actor(nullptr);
+	LEye->SetMesh(new Mesh(nullptr,"meshes/Sphere.obj"));
+	LEye->OnCreate();
+	LEye->GetMesh()->OnCreate();
+	LEye->SetTexture(new Texture());
+	LEye->GetTexture()->LoadImage("textures/evilEye.jpg");
+	LEye->SetModelMatrix(MMath::translate(Vec3(-0.6f, 0.2f, 0.7f)) *
+						MMath::rotate(-90.0f, Vec3(0.0, 1.0f, 0.0f))*
+						MMath::scale(0.4f, 0.4f, 0.4f));	
+	REye = new Actor(nullptr);
+	REye->SetMesh(new Mesh(nullptr, "meshes/Sphere.obj"));
+	REye->OnCreate();
+	REye->GetMesh()->OnCreate();
+	REye->SetTexture(new Texture());
+	REye->GetTexture()->LoadImage("textures/evilEye.jpg");
+	REye->SetModelMatrix(MMath::translate(Vec3(0.6f, 0.2f, 0.7f)) *
+		MMath::rotate(-90.0f, Vec3(0.0, 1.0f, 0.0f)) *
+		MMath::scale(0.4f, 0.4f, 0.4f));
 
 	projectionMatrix = MMath::perspective(45.0f, (16.0f / 9.0f), 0.5f, 100.f);
 	viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 0.0f));
@@ -68,21 +84,21 @@ void Scene2::HandleEvents(const SDL_Event& sdlEvent) {
 		case SDL_KEYDOWN:
 			if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT){
 				
-				skull->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(0.0f, 1.0f, 0.0f));
+				skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(0.0f, 1.0f, 0.0f)));
 
 			}else if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_RIGHT){
 
-				skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(0.0f, 1.0f, 0.0f));
+				skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(0.0f, 1.0f, 0.0f)));
 
 			}else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP) {
 
-				skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(1.0f, 0.0f, 0.0f));
+				skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(1.0f, 0.0f, 0.0f)));
 
 			}
 			else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_DOWN) {
 
-				skull->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(1.0f, 0.0f, 0.0f));
-
+				skull->SetModelMatrix(skull->GetModelMatrix()  *= MMath::rotate(1.0f, Vec3(1.0f, 0.0f, 0.0f)));
+				
 			}
 			break;
 
@@ -120,6 +136,14 @@ void Scene2::Render() const {
 	glUniformMatrix4fv(shader->GetUniformID("modelMatrix"), 1, GL_FALSE, skull->GetModelMatrix());
 	skull->GetMesh()->Render(GL_TRIANGLES);
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glUniformMatrix4fv(shader->GetUniformID("modelMatrix"), 1, GL_FALSE, skull->GetModelMatrix() * LEye->GetModelMatrix());
+	glBindTexture(GL_TEXTURE_2D, LEye->GetTexture()->getTextureID());
+	LEye->GetMesh()->Render(GL_TRIANGLES);
+
+	glUniformMatrix4fv(shader->GetUniformID("modelMatrix"), 1, GL_FALSE, skull->GetModelMatrix() * REye->GetModelMatrix());
+	glBindTexture(GL_TEXTURE_2D, REye->GetTexture()->getTextureID());
+	REye->GetMesh()->Render(GL_TRIANGLES);
 
 
 	glUseProgram(0);

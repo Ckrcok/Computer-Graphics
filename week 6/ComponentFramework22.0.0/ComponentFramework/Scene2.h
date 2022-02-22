@@ -15,12 +15,11 @@ class Texture;
 class Scene2 : public Scene {
 private:
 	Actor* skull;
-	//Mesh* skullMesh;
+	Actor* LEye;
+	Actor* REye;
 	Shader* shader;
-	//Texture* skullTexture;
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
-	//Matrix4 skullMatrix;
 	Vec3 lightPos[2];
 
 public:
