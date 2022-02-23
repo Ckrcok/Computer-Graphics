@@ -9,6 +9,9 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Texture.h"
+#include <math.h>
+
+
 
 Scene2::Scene2() :skull(nullptr), shader{ nullptr } {
 	Debug::Info("Created Scene2: ", __FILE__, __LINE__);
@@ -81,34 +84,59 @@ void Scene2::OnDestroy() {
 
 void Scene2::HandleEvents(const SDL_Event& sdlEvent) {
 	switch (sdlEvent.type) {
-		case SDL_KEYDOWN:
-			if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT){
-				
-				skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(0.0f, 1.0f, 0.0f)));
+	case SDL_KEYDOWN:
+		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT) {
 
-			}else if(sdlEvent.key.keysym.scancode == SDL_SCANCODE_RIGHT){
+			skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(0.0f, 1.0f, 0.0f)));
 
-				skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(0.0f, 1.0f, 0.0f)));
+		}
+		else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
 
-			}else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP) {
+			skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(0.0f, 1.0f, 0.0f)));
 
-				skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(1.0f, 0.0f, 0.0f)));
+		}
+		else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_UP) {
 
-			}
-			else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_DOWN) {
+			skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(-1.0f, Vec3(1.0f, 0.0f, 0.0f)));
 
-				skull->SetModelMatrix(skull->GetModelMatrix()  *= MMath::rotate(1.0f, Vec3(1.0f, 0.0f, 0.0f)));
-				
-			}
-			break;
+		}
+		else if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_DOWN) {
 
-		case SDL_MOUSEMOTION:
-			break;
+			skull->SetModelMatrix(skull->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(1.0f, 0.0f, 0.0f)));
 
+		}
+		break;
+
+	case SDL_MOUSEMOTION: {
+						int x, y;
+						SDL_GetGlobalMouseState(&x, &y);
+						
+						//angle_deg = (atan2(delta_y, delta_x) * 180.0000) / 3.1416
+						//	delta_y = origin_y - mouse_y
+						//	delta_x = origin_x - mouse_x
+
+						//float delta_y = 0.2f - y;
+						//float delta_x = -0.6f - x;
+						//REye->GetModelMatrix
+
+						//float Eye_angle = (atan2(delta_x, delta_y) * 180.0000) / 3.1416;
+
+						REye->SetModelMatrix(REye->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(x, y, 0.0f)));
+						LEye->SetModelMatrix(LEye->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(x, y, 0.0f)));
+						break;
+	}
 		case SDL_MOUSEBUTTONDOWN:
+			int InitX;
+			int InitY;
+			SDL_GetGlobalMouseState(&InitX, &InitY);
+
 			break;
 
 		case SDL_MOUSEBUTTONUP:
+			int LastX;
+			int LastY;
+			SDL_GetGlobalMouseState(&LastX, &LastY);
+
 			break;
 
 		default:

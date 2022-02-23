@@ -21,7 +21,7 @@ private:
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
 	Vec3 lightPos[2];
-
+	int x, y, InitX, InitY, LastX, LastY;
 public:
 	explicit Scene2();
 	virtual ~Scene2() override;
