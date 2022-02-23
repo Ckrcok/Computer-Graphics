@@ -18,8 +18,12 @@ private:
 	Actor* LEye;
 	Actor* REye;
 	Shader* shader;
+
+	// Camera zone
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
+	///
+
 	Vec3 lightPos[2];
 	int x, y, InitX, InitY, LastX, LastY;
 public:

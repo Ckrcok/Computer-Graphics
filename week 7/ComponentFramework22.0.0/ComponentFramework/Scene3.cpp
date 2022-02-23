@@ -10,15 +10,18 @@
 #include "Shader.h"
 #include "Texture.h"
 #include <math.h>
+#include "Camera.h"
 
 
 
-Scene3::Scene3() :skull(nullptr), shader{ nullptr } {
+Scene3::Scene3() :skull(nullptr), shader{ nullptr }, camera(nullptr) {
+	camera = new Camera(nullptr);
 	Debug::Info("Created Scene3: ", __FILE__, __LINE__);
 }
 
 Scene3::~Scene3() {
 	Debug::Info("Deleted Scene3: ", "Scene3.cpp", __LINE__);
+	if (camera) delete camera;
 }
 
 bool Scene3::OnCreate() {
@@ -56,8 +59,6 @@ bool Scene3::OnCreate() {
 		MMath::rotate(-90.0f, Vec3(0.0, 1.0f, 0.0f)) *
 		MMath::scale(0.4f, 0.4f, 0.4f));
 
-	projectionMatrix = MMath::perspective(45.0f, (16.0f / 9.0f), 0.5f, 100.f);
-	viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 0.0f));
 	//modelMatrix.loadIdentity();
 	lightPos[0] = Vec3(-10.0f, 0.0f, -5.0f);
 	lightPos[1] = Vec3(10.0f, 0.0f, -5.0f);
@@ -83,6 +84,8 @@ void Scene3::OnDestroy() {
 }
 
 void Scene3::HandleEvents(const SDL_Event& sdlEvent) {
+	camera->HandleEvents(sdlEvent);
+
 	switch (sdlEvent.type) {
 	case SDL_KEYDOWN:
 		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_LEFT) {
@@ -155,8 +158,8 @@ void Scene3::Render() const {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glUseProgram(shader->GetProgram());
-	glUniformMatrix4fv(shader->GetUniformID("projectionMatrix"), 1, GL_FALSE, projectionMatrix);
-	glUniformMatrix4fv(shader->GetUniformID("viewMatrix"), 1, GL_FALSE, viewMatrix);
+	glUniformMatrix4fv(shader->GetUniformID("projectionMatrix"), 1, GL_FALSE, camera->GetProjectionMatrix());
+	glUniformMatrix4fv(shader->GetUniformID("viewMatrix"), 1, GL_FALSE, camera->GetViewMatrix());
 	glUniform3fv(shader->GetUniformID("lightPos[0]"), 2, lightPos[0]);
 	
 

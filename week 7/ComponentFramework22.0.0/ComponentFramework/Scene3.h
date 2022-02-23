@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Vector.h"
 #include "Matrix.h"
+
 using namespace MATH;
 
 /// Forward declarations 
@@ -11,6 +12,7 @@ class Actor;
 class Mesh;
 class Shader;
 class Texture;
+class Camera;
 
 class Scene3 : public Scene {
 private:
@@ -18,10 +20,8 @@ private:
 	Actor* LEye;
 	Actor* REye;
 	Shader* shader;
-	Matrix4 projectionMatrix;
-	Matrix4 viewMatrix;
+	Camera*	camera;
 	Vec3 lightPos[2];
-	int x, y, InitX, InitY, LastX, LastY;
 public:
 	explicit Scene3();
 	virtual ~Scene3() override;
