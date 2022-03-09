@@ -7,7 +7,7 @@
 #include "Scene2.h"
 #include "Scene3.h"
 
-SceneManager::SceneManager(): 
+SceneManager::SceneManager():
 	currentScene(nullptr), window(nullptr), timer(nullptr),
 	fps(60), isRunning(false), fullScreen(false) {
 	Debug::Info("Starting the SceneManager", __FILE__, __LINE__);
@@ -48,8 +48,8 @@ bool SceneManager::Initialize(std::string name_, int width_, int height_) {
 	}
 
 	/********************************   Default first scene   ***********************/
-	BuildNewScene(SCENE_NUMBER::SCENE3);
-	
+	BuildNewScene(SCENE_NUMBER::SCENE0);
+
 	return true;
 }
 
@@ -77,7 +77,7 @@ void SceneManager::HandleEvents() {
 		else if (sdlEvent.type == SDL_KEYDOWN) {
 			switch (sdlEvent.key.keysym.scancode) {
 			case SDL_SCANCODE_ESCAPE:
-				
+
 			case SDL_SCANCODE_Q:
 				isRunning = false;
 				return;
@@ -108,7 +108,7 @@ void SceneManager::HandleEvents() {
 }
 
 void SceneManager::BuildNewScene(SCENE_NUMBER scene) {
-	bool status; 
+	bool status;
 
 
 	//destroy current scene
@@ -117,7 +117,7 @@ void SceneManager::BuildNewScene(SCENE_NUMBER scene) {
 		delete currentScene;
 		currentScene = nullptr;
 	}
-	
+
 	//switch what scene you would run
 	switch (scene) {
 		case SCENE_NUMBER::SCENE0:
@@ -144,7 +144,7 @@ void SceneManager::BuildNewScene(SCENE_NUMBER scene) {
 			Debug::Error("Incorrect scene number assigned in the manager", __FILE__, __LINE__);
 			currentScene = nullptr;
 			break;
-		}	
+		}
 }
 
 

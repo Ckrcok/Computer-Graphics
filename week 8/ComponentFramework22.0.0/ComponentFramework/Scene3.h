@@ -6,7 +6,7 @@
 
 using namespace MATH;
 
-/// Forward declarations 
+/// Forward declarations
 union SDL_Event;
 class Actor;
 class Mesh;

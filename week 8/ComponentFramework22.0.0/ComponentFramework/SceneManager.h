@@ -4,14 +4,14 @@
 #include <string>
 class SceneManager  {
 public:
-	
+
 	SceneManager();
 	~SceneManager();
 	void Run();
 	bool Initialize(std::string name_, int width_, int height_);
 	void HandleEvents();
-	
-	
+
+
 private:
 	enum class SCENE_NUMBER {
 		SCENE0 = 0,

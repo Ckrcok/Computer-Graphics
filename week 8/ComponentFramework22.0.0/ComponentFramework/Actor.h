@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <vector> 
+#include <vector>
 #include "Component.h"
 #include "Matrix.h"
 #include "Texture.h"
@@ -25,7 +25,7 @@ public:
 	void Update(const float deltaTime_);
 	void Render() const;
 	void ListComponents()const;
-	
+
 	Matrix4 GetModelMatrix() const { return modelMatrix; }
 	Texture* GetTexture() const { return texture; }
 	Mesh* GetMesh() const { return mesh; }
@@ -56,7 +56,7 @@ public:
 			return;
 		}
 		components.push_back(comp);
-		
+
 	}
 
 	template<typename ComponentTemplate>
@@ -81,5 +81,5 @@ public:
 			}
 		}
 	}
-	
+
 };

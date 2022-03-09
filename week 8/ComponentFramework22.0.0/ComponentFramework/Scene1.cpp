@@ -80,22 +80,6 @@ void Scene1::Update(const float deltaTime) {
 	static float time = 0;
 	time += deltaTime;
 
-	if (time > 5) {
-		Physics::applyForce(Vec3(500000), 0, 0, *ship);
-		Physics::applyTorque(Vec3(500000), 0, 0, *ship);
-	}
-
-	if (time >= 5 && time <= 35) {
-		Pyhsics::applyForce(Vec3(0, 0, 0), *ship);
-		Pyhsics::applyTorque(0, *ship);
-	}
-
-	Vec3 force(0.0f, 0.0f, 0.0f);
-	force.x = ship->getForce().x * cos(ship->getAngle()) - ship->getForce().y * sin(ship->getAngle());
-	force.y = ship->getForce().x * sin(ship->getAngle()) + ship->getForce().y * cos(ship->getAngle());
-
-	Pyhsics::simpleNewtonMoption(*ship, deltaTime);
-	cout << time << endl;
 }
 
 void Scene1::Render() const {
