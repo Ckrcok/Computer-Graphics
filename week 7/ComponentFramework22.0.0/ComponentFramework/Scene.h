@@ -3,8 +3,8 @@
 #include "Component.h"
 union SDL_Event;
 class Scene : public Component {
-public:	
-	Scene(): Component(nullptr) {} 
+public:
+	Scene(): Component(nullptr) {}
 	virtual ~Scene() {}
 	/// These are not nessesary since they were already defined in Component.h
 	/***
@@ -14,6 +14,6 @@ public:
 	virtual void Render() const  = 0 ;
 	***/
 	virtual void HandleEvents(const SDL_Event &sdlEvent) = 0;
-	
+
 };
 #endif

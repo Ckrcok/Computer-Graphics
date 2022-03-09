@@ -25,7 +25,7 @@ bool Scene2::OnCreate() {
 	Debug::Info("Loading assets Scene2: ", __FILE__, __LINE__);
 	skull = new Actor(nullptr);
 	skull->OnCreate();
-	
+
 	skull->SetMesh(new Mesh(nullptr, "meshes/Skull.obj")) ;
 	skull->GetMesh()->OnCreate();
 
@@ -45,7 +45,7 @@ bool Scene2::OnCreate() {
 	LEye->GetTexture()->LoadImage("textures/evilEye.jpg");
 	LEye->SetModelMatrix(MMath::translate(Vec3(-0.6f, 0.2f, 0.7f)) *
 						MMath::rotate(-90.0f, Vec3(0.0, 1.0f, 0.0f))*
-						MMath::scale(0.4f, 0.4f, 0.4f));	
+						MMath::scale(0.4f, 0.4f, 0.4f));
 	REye = new Actor(nullptr);
 	REye->SetMesh(new Mesh(nullptr, "meshes/Sphere.obj"));
 	REye->OnCreate();
@@ -110,7 +110,7 @@ void Scene2::HandleEvents(const SDL_Event& sdlEvent) {
 	case SDL_MOUSEMOTION: {
 						int x, y;
 						SDL_GetGlobalMouseState(&x, &y);
-						
+
 						//angle_deg = (atan2(delta_y, delta_x) * 180.0000) / 3.1416
 						//	delta_y = origin_y - mouse_y
 						//	delta_x = origin_x - mouse_x
@@ -158,7 +158,7 @@ void Scene2::Render() const {
 	glUniformMatrix4fv(shader->GetUniformID("projectionMatrix"), 1, GL_FALSE, projectionMatrix);
 	glUniformMatrix4fv(shader->GetUniformID("viewMatrix"), 1, GL_FALSE, viewMatrix);
 	glUniform3fv(shader->GetUniformID("lightPos[0]"), 2, lightPos[0]);
-	
+
 
 	glBindTexture(GL_TEXTURE_2D, skull->GetTexture()->getTextureID());
 	glUniformMatrix4fv(shader->GetUniformID("modelMatrix"), 1, GL_FALSE, skull->GetModelMatrix());

@@ -24,7 +24,7 @@ private:
 	void StoreMeshData(GLenum drawmode_);
 	GLuint vao, vbo;
 public:
-	
+
 	Mesh(Component *parent_,const char* filename_);
 	~Mesh();
 	bool OnCreate();
@@ -32,6 +32,5 @@ public:
 	void Update(const float deltaTime);
 	void Render() const;
 	void Render(GLenum drawmode) const;
-	
-};
 
+};
