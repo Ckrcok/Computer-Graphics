@@ -3,8 +3,8 @@
 
 layout(location = 0) in vec3 vertNormal;
 layout(location = 1) in vec3 lightDir;
-layout(location = 2) in vec3 eyeDir; 
-layout(location = 3) in vec2 texCoord; 
+layout(location = 2) in vec3 eyeDir;
+layout(location = 3) in vec2 texCoord;
 uniform sampler2D myTexture;
 layout(location = 0) out vec4 fragColor;
 
@@ -20,5 +20,5 @@ void main() {
 	vec3 reflection = normalize(reflect(-lightDir, vertNormal));
 	float spec = max(dot(eyeDir, reflection), 0.0);
 	spec = pow(spec,14.0);
-	fragColor =  ka + (textureColor * diff * kd) + (spec * ks);	
+	fragColor =  ka + (textureColor * diff * kd) + (spec * ks);
 }

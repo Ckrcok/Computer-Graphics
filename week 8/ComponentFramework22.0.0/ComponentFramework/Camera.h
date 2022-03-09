@@ -13,12 +13,13 @@ private:
 	Matrix4 translationMatrix;
 	Trackball* trackball;
 
-public: 
+public:
 	Camera(Actor* parent_);
 	~Camera();
 	Matrix4 GetProjectionMatrix() { return projectionMatrix; }
 	Matrix4 GetViewMatrix() { return viewMatrix; }
 	void HandleEvents(const SDL_Event& sdlEvent);
 
+	// if there is skybox add sky box if there is camera add camera
 };
 
