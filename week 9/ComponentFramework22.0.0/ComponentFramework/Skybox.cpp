@@ -22,17 +22,22 @@ bool Skybox::OnCreate() {
 
 
 	mesh = new Mesh(nullptr, "meshes/Cube.obj");
+	bool status  = mesh->OnCreate();
+
+	shader = new Shader(nullptr, "shaders/skyboxVert.glsl", "shaders/skyboxFrag.glsl");
+	shader->OnCreate();
 
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
 	SDL_Surface* textureSurface;
+	int mode;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	textureSurface = IMG_Load(posXfilename);
 	if (textureSurface == nullptr) {
 		return false;
 	}
-	int mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
+	 mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X,0, mode, textureSurface->w, textureSurface->h, 0, mode, GL_UNSIGNED_BYTE, textureSurface->pixels);
 	//free the memory
 	SDL_FreeSurface(textureSurface);
@@ -48,7 +53,7 @@ bool Skybox::OnCreate() {
 		return false;
 	}
 
-	int mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
+	 mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, mode, textureSurface->w, textureSurface->h, 0, mode, GL_UNSIGNED_BYTE, textureSurface->pixels);
 
 	//free the memory
@@ -67,7 +72,7 @@ bool Skybox::OnCreate() {
 		return false;
 	}
 
-	int mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
+	 mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, mode, textureSurface->w, textureSurface->h, 0, mode, GL_UNSIGNED_BYTE, textureSurface->pixels);
 
 	//free the memory
@@ -86,7 +91,7 @@ bool Skybox::OnCreate() {
 		return false;
 	}
 
-	int mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
+	 mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, mode, textureSurface->w, textureSurface->h, 0, mode, GL_UNSIGNED_BYTE, textureSurface->pixels);
 
 	//free the memory
@@ -105,7 +110,7 @@ bool Skybox::OnCreate() {
 		return false;
 	}
 
-	int mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
+	 mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, mode, textureSurface->w, textureSurface->h, 0, mode, GL_UNSIGNED_BYTE, textureSurface->pixels);
 
 	//free the memory
@@ -124,7 +129,7 @@ bool Skybox::OnCreate() {
 		return false;
 	}
 
-	int mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
+	 mode = (textureSurface->format->BytesPerPixel == 4) ? GL_RGBA : GL_RGB;
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, mode, textureSurface->w, textureSurface->h, 0, mode, GL_UNSIGNED_BYTE, textureSurface->pixels);
 
 	//free the memory
@@ -146,9 +151,17 @@ bool Skybox::OnCreate() {
 void Skybox::OnDestroy() { glDeleteTextures(1, &textureID); }
 
 void Skybox::Update(const float deltaTime_) {}
+
 void Skybox::Render() const{
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
+
+	GLuint programID = shader->GetProgram();
+
+	glUseProgram(programID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
 	mesh->Render();
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	glUseProgram(0);
 
 }

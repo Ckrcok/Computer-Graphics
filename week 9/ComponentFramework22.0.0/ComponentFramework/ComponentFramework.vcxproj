@@ -179,6 +179,8 @@
     <None Include="shaders\multiLightVert.glsl" />
     <None Include="shaders\phongFrag.glsl" />
     <None Include="shaders\phongVert.glsl" />
+    <None Include="shaders\skyboxFrag.glsl" />
+    <None Include="shaders\skyboxVert.glsl" />
     <None Include="shaders\textureFrag.glsl" />
     <None Include="shaders\textureVert.glsl" />
   </ItemGroup>

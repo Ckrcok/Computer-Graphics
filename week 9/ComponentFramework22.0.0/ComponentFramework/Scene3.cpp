@@ -14,8 +14,9 @@
 
 
 
-Scene3::Scene3() :skull(nullptr), shader{ nullptr }, camera(nullptr) {
+Scene3::Scene3() :skull(nullptr), shader{ nullptr }, camera(nullptr), LEye(nullptr) {
 	camera = new Camera(nullptr);
+	camera->OnCreate();
 	Debug::Info("Created Scene3: ", __FILE__, __LINE__);
 }
 
@@ -32,7 +33,7 @@ bool Scene3::OnCreate() {
 	skull->SetMesh(new Mesh(nullptr, "meshes/Skull.obj")) ;
 	skull->GetMesh()->OnCreate();
 
-	shader = new Shader(nullptr, "shaders/multiLightVert.glsl", "shaders/multiLightFrag.glsl");
+	shader = new Shader(nullptr, "shaders/textureVert.glsl", "shaders/textureFrag.glsl");
 	shader->OnCreate();
 
 	if (shader->OnCreate() == false) {std::cout << "Shader Failed..";}
@@ -114,16 +115,6 @@ void Scene3::HandleEvents(const SDL_Event& sdlEvent) {
 						int x, y;
 						SDL_GetGlobalMouseState(&x, &y);
 
-						//angle_deg = (atan2(delta_y, delta_x) * 180.0000) / 3.1416
-						//	delta_y = origin_y - mouse_y
-						//	delta_x = origin_x - mouse_x
-
-						//float delta_y = 0.2f - y;
-						//float delta_x = -0.6f - x;
-						//REye->GetModelMatrix
-
-						//float Eye_angle = (atan2(delta_x, delta_y) * 180.0000) / 3.1416;
-
 						REye->SetModelMatrix(REye->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(x, y, 0.0f)));
 						LEye->SetModelMatrix(LEye->GetModelMatrix() *= MMath::rotate(1.0f, Vec3(x, y, 0.0f)));
 						break;
@@ -152,14 +143,17 @@ void Scene3::Update(const float deltaTime) {
 }
 
 void Scene3::Render() const {
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glFrontFace(GL_CW);
+	glFrontFace(GL_CCW);
 
 	/// Clear the screen
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	camera->Render();
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 
 	glUseProgram(shader->GetProgram());
 	glUniformMatrix4fv(shader->GetUniformID("projectionMatrix"), 1, GL_FALSE, camera->GetProjectionMatrix());

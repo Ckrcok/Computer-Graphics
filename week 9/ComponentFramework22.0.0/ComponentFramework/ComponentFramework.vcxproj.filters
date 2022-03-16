@@ -189,5 +189,7 @@
     <None Include="shaders\multiLightVert.glsl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="shaders\skyboxFrag.glsl" />
+    <None Include="shaders\skyboxVert.glsl" />
   </ItemGroup>
 </Project>
