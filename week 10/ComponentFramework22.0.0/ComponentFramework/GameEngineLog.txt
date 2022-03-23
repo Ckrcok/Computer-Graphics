@@ -1,0 +1,26 @@
+Wed Mar 23 11:03:36 2022
+[INFO]: Starting the SceneManager
+[INFO]: OpenGL version: 4.6.0 NVIDIA 511.79
+[INFO]: Graphics card vendor NVIDIA Corporation
+[INFO]: Graphics card name NVIDIA GeForce GTX 1070 Ti/PCIe/SSE2
+[INFO]: GLSL Version 4.60 NVIDIA
+[INFO]: Uniforms:
+"projectionMatrix" loc:0
+"skybox" loc:2
+"viewMatrix" loc:1
+
+[INFO]: Created Scene4: 
+[INFO]: Loading assets Scene4: 
+[INFO]: Uniforms:
+"modelMatrix" loc:2
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
+[INFO]: Uniforms:
+"modelMatrix" loc:2
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
+[INFO]: Deleting assets Scene4: 
+[INFO]: Deleted Scene4: 
+[INFO]: Deleting the SceneManager
