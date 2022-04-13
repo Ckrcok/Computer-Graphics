@@ -1,6 +1,6 @@
-Sat Mar  5 11:25:09 2022
+Mon Apr  4 20:57:16 2022
 [INFO]: Starting the SceneManager
-[INFO]: OpenGL version: 4.6.0 NVIDIA 511.65
+[INFO]: OpenGL version: 4.6.0 NVIDIA 512.15
 [INFO]: Graphics card vendor NVIDIA Corporation
 [INFO]: Graphics card name NVIDIA GeForce GTX 1070 Ti/PCIe/SSE2
 [INFO]: GLSL Version 4.60 NVIDIA
@@ -22,4 +22,58 @@ Sat Mar  5 11:25:09 2022
 
 [INFO]: Deleting assets Scene2: 
 [INFO]: Deleted Scene2: 
+[INFO]: Created Scene1: 
+[INFO]: Loading assets Scene1: 
+[INFO]: Uniforms:
+"lightPos[0]" loc:3
+"modelMatrix" loc:2
+"myTexture" loc:5
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
+[INFO]: Uniforms:
+"lightPos[0]" loc:3
+"modelMatrix" loc:2
+"myTexture" loc:5
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
+[INFO]: Deleting assets Scene1: 
+[INFO]: Deleted Scene1: 
+[INFO]: Created Scene0: 
+[INFO]: Loading assets Scene0: 
+[INFO]: Uniforms:
+"lightPos" loc:3
+"modelMatrix" loc:2
+"myTexture" loc:4
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
+[INFO]: Uniforms:
+"lightPos" loc:3
+"modelMatrix" loc:2
+"myTexture" loc:4
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
+[INFO]: Deleting assets Scene0: 
+[INFO]: Deleted Scene0: 
+[INFO]: Created Scene0: 
+[INFO]: Loading assets Scene0: 
+[INFO]: Uniforms:
+"lightPos" loc:3
+"modelMatrix" loc:2
+"myTexture" loc:4
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
+[INFO]: Uniforms:
+"lightPos" loc:3
+"modelMatrix" loc:2
+"myTexture" loc:4
+"projectionMatrix" loc:0
+"viewMatrix" loc:1
+
+[INFO]: Deleting assets Scene0: 
+[INFO]: Deleted Scene0: 
 [INFO]: Deleting the SceneManager

@@ -187,6 +187,8 @@
     <None Include="shaders\skyboxVert.glsl" />
     <None Include="shaders\textureFrag.glsl" />
     <None Include="shaders\textureVert.glsl" />
+    <None Include="shaders\toonFrag.glsl" />
+    <None Include="shaders\toonVert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

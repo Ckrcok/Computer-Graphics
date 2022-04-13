@@ -207,5 +207,11 @@
     <None Include="shaders\phongFrag.glsl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="shaders\toonFrag.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\toonVert.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

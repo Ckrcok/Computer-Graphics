@@ -26,7 +26,7 @@ bool Scene1::OnCreate() {
 	mesh = new Mesh(nullptr, "meshes/Mario.obj");
 	mesh->OnCreate();
 
-	shader = new Shader(nullptr, "shaders/multiLightVert.glsl", "shaders/multiLightFrag.glsl");
+	shader = new Shader(nullptr, "shaders/toonVert.glsl", "shaders/toonFrag.glsl");
 	shader->OnCreate();
 	if (shader->OnCreate() == false){
 		std::cout << "Shader Failed..";
@@ -85,7 +85,7 @@ void Scene1::Update(const float deltaTime) {
 void Scene1::Render() const {
 	glEnable(GL_DEPTH_TEST);
 	/// Clear the screen
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glUseProgram(shader->GetProgram());
