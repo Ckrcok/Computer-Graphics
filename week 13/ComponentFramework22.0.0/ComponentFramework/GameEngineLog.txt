@@ -1,4 +1,4 @@
-Wed Mar 30 12:12:56 2022
+Wed Apr 13 11:58:58 2022
 [INFO]: Starting the SceneManager
 [INFO]: OpenGL version: 4.6.0 NVIDIA 512.15
 [INFO]: Graphics card vendor NVIDIA Corporation
@@ -9,8 +9,8 @@ Wed Mar 30 12:12:56 2022
 "skybox" loc:2
 "viewMatrix" loc:1
 
-[INFO]: Created Scene4:
-[INFO]: Loading assets Scene4:
+[INFO]: Created Scene4: 
+[INFO]: Loading assets Scene4: 
 [INFO]: Uniforms:
 "modelMatrix" loc:2
 "projectionMatrix" loc:0
@@ -21,22 +21,6 @@ Wed Mar 30 12:12:56 2022
 "projectionMatrix" loc:0
 "viewMatrix" loc:1
 
-[INFO]: Deleting assets Scene4:
-[INFO]: Deleted Scene4:
-[INFO]: Created Scene1:
-[INFO]: Loading assets Scene1:
-[INFO]: Uniforms:
-"lightPos" loc:3
-"modelMatrix" loc:2
-"projectionMatrix" loc:0
-"viewMatrix" loc:1
-
-[INFO]: Uniforms:
-"lightPos" loc:3
-"modelMatrix" loc:2
-"projectionMatrix" loc:0
-"viewMatrix" loc:1
-
-[INFO]: Deleting assets Scene1:
-[INFO]: Deleted Scene1:
+[INFO]: Deleting assets Scene4: 
+[INFO]: Deleted Scene4: 
 [INFO]: Deleting the SceneManager

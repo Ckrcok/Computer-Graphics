@@ -13,9 +13,8 @@ class Mesh;
 class Shader;
 class Texture;
 class Camera;
-//float totalTime;
-Vec3 offset;
-GLuint noiseTextureID;
+
+
 
 class Scene5 : public Scene {
 private:
@@ -24,7 +23,8 @@ private:
 	Actor* REye;
 	Shader* shader;
 	Camera*	camera;
-
+	Vec3 offset;
+	GLuint noiseTextureID;
 public:
 	explicit Scene5();
 	virtual ~Scene5() override;

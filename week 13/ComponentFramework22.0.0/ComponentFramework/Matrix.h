@@ -1,6 +1,6 @@
 #ifndef MATRIX_H
 #define MATRIX_H
-#include <iostream>	
+#include <iostream>
 #include "Vector.h"
 
 namespace  MATH {
@@ -15,14 +15,14 @@ namespace  MATH {
 	///
 	class Matrix4 {
 
-		/// Let's just make sure that all is clear about how this matrix is layed out. 
+		/// Let's just make sure that all is clear about how this matrix is layed out.
 
 		/// How a matrix is really layed out is pretty much abitrary but we need to agree
-		/// and the world has agreed (except for Microsoft) on the right-hand rule. 
-		/// First, the 4x4 matrix is really just an array of 16 numbers.  
+		/// and the world has agreed (except for Microsoft) on the right-hand rule.
+		/// First, the 4x4 matrix is really just an array of 16 numbers.
 		/// We need to think of the array as a matrix in the following way
-		/// 4x4 matrix - COLUMN MAJOR - The OpenGL, science, physics, mathematics and engineering way. 
-		///	0  4  8  12        [0][0]  [1][0]  [2][0]  [3][0]   
+		/// 4x4 matrix - COLUMN MAJOR - The OpenGL, science, physics, mathematics and engineering way.
+		///	0  4  8  12        [0][0]  [1][0]  [2][0]  [3][0]
 		///	1  5  9  13  (or)  [0][1]  [1][1]  [2][1]  [3][1]
 		///	2  6  10 14        [0][2]  [1][2]  [2][2]  [3][2]
 		///	3  7  11 15        [0][3]  [1][3]  [2][3]  [3][3]
@@ -50,7 +50,7 @@ namespace  MATH {
 		}
 
 		/// Create the unit matrix probably the most common way of initializing a matrix
-		/// (If the argument within the constructor is pre-defined, as in this case 1.0f, the 
+		/// (If the argument within the constructor is pre-defined, as in this case 1.0f, the
 		/// zero argument constructor will use 1.0f as the argument. Anything other than
 		/// 1.0f will be assigned to the float d)
 		inline Matrix4() {
@@ -66,13 +66,13 @@ namespace  MATH {
 			m[3] = 0.0f;   m[7] = 0.0f;   m[11] = 0.0f;   m[15] = 1.0f;
 		}
 
-		/// Multiply two 4x4 matricies. 
-		/// Grrr, I never liked mulipling maticies - but it needs to be done. 
+		/// Multiply two 4x4 matricies.
+		/// Grrr, I never liked mulipling maticies - but it needs to be done.
 		/// Tested 3/7/2017 SSF
 
 		inline const Matrix4 operator*(const Matrix4& n) const {
-			
-			/// This approach is about 8 nanoseconds faster, not because I unrolled the loops but because of the constructor, ask me. 
+
+			/// This approach is about 8 nanoseconds faster, not because I unrolled the loops but because of the constructor, ask me.
 			return Matrix4(
 				(m[0 * 4 + 0] * n[0 * 4 + 0]) + (m[1 * 4 + 0] * n[0 * 4 + 1]) + (m[2 * 4 + 0] * n[0 * 4 + 2]) + (m[3 * 4 + 0] * n[0 * 4 + 3]),
 				(m[0 * 4 + 1] * n[0 * 4 + 0]) + (m[1 * 4 + 1] * n[0 * 4 + 1]) + (m[2 * 4 + 1] * n[0 * 4 + 2]) + (m[3 * 4 + 1] * n[0 * 4 + 3]),
@@ -99,8 +99,8 @@ namespace  MATH {
 				}
 				return result;
 			***/
-		
-		
+
+
 		}
 
 		/// Multipling a matrix by itself is probably the most commom
@@ -111,10 +111,10 @@ namespace  MATH {
 		}
 
 		/// Multiply a Vec4 by this matrix and return the resulting Vec4
-		/// If this matrix is not affine (the projection matrix is not), 
-		/// the w-component is not 1.0 and therefore the resulting vector 
+		/// If this matrix is not affine (the projection matrix is not),
+		/// the w-component is not 1.0 and therefore the resulting vector
 		/// location in 4-D space. Dividing through by w converts the vector
-		/// back into 3-D space. 
+		/// back into 3-D space.
 		inline  Vec4 operator* (const Vec4& v) const {
 			float x = v.x * m[0] + v.y * m[4] + v.z * m[8] + v.w * m[12];
 			float y = v.x * m[1] + v.y * m[5] + v.z * m[9] + v.w * m[13];
@@ -124,7 +124,7 @@ namespace  MATH {
 		}
 
 		/// Multiply a Vec3 by this matrix and return the resulting Vec3
-		/// Mathematicians would say this is impossible but this is just 
+		/// Mathematicians would say this is impossible but this is just
 		/// code.  I will assume the w-component of the Vec3 is 1.0.
 		inline  Vec3 operator* (const Vec3& v) const {
 			float x = v.x * m[0] + v.y * m[4] + v.z * m[8] + 1.0f * m[12];
@@ -136,13 +136,13 @@ namespace  MATH {
 
 		/// Now I can use the structure itself as an array.
 		/// When overloading the [] operator you need to declair one
-		/// to read the array and one to write to the array. 
+		/// to read the array and one to write to the array.
 		///  Returns a const - the rvalue
 		inline const float operator [] (int index) const {
 			return *(m + index);
 		}
 
-		/// This one is for writing to the structure as if where an array 
+		/// This one is for writing to the structure as if where an array
 		/// it returns a modifiable lvalue
 		inline float& operator [] (int index) {
 			return *(m + index);
@@ -152,7 +152,7 @@ namespace  MATH {
 		inline operator float* () { return static_cast<float*>(&m[0]); }
 		inline operator const float* () const { return static_cast<const float*>(&m[0]); }
 
-		/// Print the Matrix4 in column form (right-hand rule), add a comment if you wish 
+		/// Print the Matrix4 in column form (right-hand rule), add a comment if you wish
 		inline void print(const char* comment = nullptr) {
 			if (comment) printf("%s\n", comment);
 			printf("%1.4f %1.4f %1.4f %1.4f\n%1.4f %1.4f %1.4f %1.4f \n%1.4f %1.4f %1.4f %1.4f \n%1.4f %1.4f %1.4f %1.4f \n\n",
@@ -163,8 +163,8 @@ namespace  MATH {
 		}
 
 		/// These functions set and return the columns of a Matrix4
-		/// Since the library is right-handed, the colunms are refered to 
-		/// as basis vectors.  
+		/// Since the library is right-handed, the colunms are refered to
+		/// as basis vectors.
 		enum Colunm { zero = 0, one, two, three };
 		inline Vec4 getColumn(Colunm index) {
 			return Vec4(m[4 * index + 0], m[4 * index + 1], m[4 * index + 2], m[4 * index + 3]);
@@ -188,10 +188,10 @@ namespace  MATH {
 
 
 	class Matrix3 {
-		/// 3x3 matrix - COLUMN MAJOR 
-		///	0	3	6			
-		///	1	4	7	 
-		///	2	5	8			
+		/// 3x3 matrix - COLUMN MAJOR
+		///	0	3	6
+		///	1	4	7
+		///	2	5	8
 
 	private:
 		float  m[9];
@@ -214,13 +214,13 @@ namespace  MATH {
 
 		/// Now I can use the class itself as an array.
 		/// When overloading the [] operator you need to declair one
-		/// to read the array and one to write to the array. 
+		/// to read the array and one to write to the array.
 		///  Returns a const rvalue
 		inline const float operator [] (int index) const {
 			return *(m + index);
 		}
 
-		/// This one is for writing to the class as if where an array 
+		/// This one is for writing to the class as if where an array
 		/// it returns a lvalue
 		inline float& operator [] (int index) {
 			return *(m + index);
@@ -249,10 +249,10 @@ namespace  MATH {
 			return Vec3(x, y, z);
 		}
 
-		/// Multiply two 3x3 matricies. 
+		/// Multiply two 3x3 matricies.
 		/// In the Vec4 class I unroll the loop and seek efficiency everywhere,
-		/// probably never matters in reality. 
-		/// Here, I just do with just loops. 
+		/// probably never matters in reality.
+		/// Here, I just do with just loops.
 		inline const Matrix3 operator*(const Matrix3& n) const {
 			Matrix3 result;
 			for (int i = 0; i < 3; ++i) {
@@ -277,9 +277,9 @@ namespace  MATH {
 		}
 
 		/// Extracts the inner 3x3 from a 4x4 matrix
-		/// The upper 3x3 of a 4x4 contains only scale and rotation components. 
-		/// This will prove useful in many cases. 
-		/// This uses the assignment operator, inspite of my tenet of "least astonishment" 
+		/// The upper 3x3 of a 4x4 contains only scale and rotation components.
+		/// This will prove useful in many cases.
+		/// This uses the assignment operator, inspite of my tenet of "least astonishment"
 		inline Matrix3& operator = (const Matrix4& m_) {
 			m[0] = m_[0]; m[1] = m_[1]; m[2] = m_[2];
 			m[3] = m_[4]; m[4] = m_[5]; m[5] = m_[6];
@@ -294,8 +294,8 @@ namespace  MATH {
 
 
 		/// These functions set and return the columns of a Matrix3
-		/// Since the library is right-handed, the colunms are refered to 
-		/// as basis vectors.  
+		/// Since the library is right-handed, the colunms are refered to
+		/// as basis vectors.
 		enum class Colunm : int { zero = 0, one, two };
 		inline Vec3 getColumn(Colunm index) {
 			return Vec3(m[3 * (int)index + 0], m[3 * (int)index + 1], m[3 * (int)index + 2]);

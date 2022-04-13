@@ -1,6 +1,11 @@
 #version 450
 #extension GL_ARB_separate_shader_objects : enable
 
+in vec3 vertNormal;
+in vec3 vertDir;
+out vec4 fragColor;
+uniform samplerCube skyboxTexture;
+
 vec4 reflection();
 vec4 refraction();
 

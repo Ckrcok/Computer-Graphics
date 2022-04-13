@@ -1,16 +1,14 @@
 #include <glew.h>
 #include <iostream>
 #include <SDL.h>
-#include "Debug.h"
 #include "Scene5.h"
-#include "MMath.h"
+#include "Camera.h"
 #include "Debug.h"
+#include "MMath.h"
 #include "Actor.h"
 #include "Mesh.h"
 #include "Shader.h"
 #include "Texture.h"
-#include <math.h>
-#include "Camera.h"
 #include "Noise.h"
 
 
@@ -29,7 +27,7 @@ Scene5::~Scene5() {
 bool Scene5::OnCreate() {
 	Debug::Info("Loading assets Scene5: ", __FILE__, __LINE__);
 
-	noiseTextureID = CreateNoise3D();
+	//noiseTextureID = CreateNoise3D();
 
 	sphere = new Actor(nullptr);
 	sphere->OnCreate();
@@ -59,7 +57,7 @@ void Scene5::OnDestroy() {
 		shader->OnDestroy();
 		delete shader;
 	}
-	DeleteNoise3D();
+	//DeleteNoise3D();
 
 }
 
@@ -116,7 +114,6 @@ void Scene5::HandleEvents(const SDL_Event& sdlEvent) {
 }
 
 void Scene5::Update(const float deltaTime) {
-	//totalTime += deltaTime;
 	offset.x += 0.001f;
 	offset.y += 0.001f;
 	offset.z += 0.001f;
